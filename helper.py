@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 
 
 class Helper:

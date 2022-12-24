@@ -53,6 +53,7 @@ table{
 <body>
 <h1> Hello from English teacher  </br></h1>
 <div id="question_id"> </div>
+<div id="score"> </div>
 <table>
     <thead><tr><th> Guess word </th><th> Guess letter</th> </tr> </thead>
     <tbody>
@@ -87,7 +88,6 @@ table{
 
 </table>
 
-<h2> Your score is: <div score="score"></div> </h2>
 
 <!--<button onclick="word_guess()"> guess word</button>-->
 <!--<div id="english"></div>-->
@@ -103,7 +103,10 @@ table{
 <script>
     async function word_guess()
     {
-	@@ -31,16 +109,30 @@ <h1> Hello from English teacher  </br></h1>
+        const response = await fetch("word/guess", {
+        method: "GET"
+        })
+
         if (response.ok)
             {
             const data = await response.json()
@@ -126,49 +129,3 @@ table{
             document.getElementById("question_id").value = data.question_id;
             }
     }
-
-    async function word_check()
-    {
-        const answer = document.getElementById("answer_word").value;
-        const question_id = document.getElementById("question_id").value;
-        console.log(answer)
-        console.log(question_id)
-        const response = await fetch("word/check", {
-	@@ -55,10 +147,36 @@ <h1> Hello from English teacher  </br></h1>
-        if (response.ok)
-            {
-            const data = await response.json()
-            document.getElementById("result_word").textContent = data.is_correct
-            }
-    }
-
-    async function letter_check()
-    {
-        const answer = document.getElementById("answer_letter").value;
-        const question_id = document.getElementById("question_id").value;
-        console.log(answer)
-        console.log(question_id)
-        const response = await fetch("letter/check", {
-        method: "POST",
-        headers: { "Accept": "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({
-            letter: answer,
-            question_id: Number(question_id)
-            })
-        })
-
-        if (response.ok)
-            {
-            const data = await response.json()
-            document.getElementById("result_letter").textContent = data.is_correct
-            }
-        else
-        {
-            const data = await response.json()
-            document.getElementById("result_letter").textContent = 'must be 1 letter'
-        }
-    }
-</script>
-
-</body>
-</html>
